@@ -60,7 +60,11 @@ export default {
           isCorrectModality = true
           break
         case 'ieeg':
-          // iEEG
+          // EEG
+          isCorrectModality = true
+          break
+        case 'nirs':
+          // NIRS
           isCorrectModality = true
           break
         default:

@@ -34,6 +34,7 @@ const funcBoldData = buildRegExp(file_level_rules.func_bold)
 const ieegData = buildRegExp(file_level_rules.ieeg)
 const megData = buildRegExp(file_level_rules.meg)
 const stimuliData = buildRegExp(file_level_rules.stimuli)
+const nirsData = buildRegExp(file_level_rules.nirs)
 // Phenotypic data
 const phenotypicData = buildRegExp(phenotypic_rules.phenotypic_data)
 // Session level
@@ -44,6 +45,7 @@ const funcSes = buildRegExp(session_level_rules.func_ses)
 const ieegSes = buildRegExp(session_level_rules.ieeg_ses)
 const megSes = buildRegExp(session_level_rules.meg_ses)
 const scansSes = buildRegExp(session_level_rules.scans)
+const nirsSes = buildRegExp(session_level_rules.nirs_ses)
 // Subject level
 const subjectLevel = buildRegExp(subject_level_rules.subject_level)
 // Top level
@@ -56,6 +58,7 @@ const ieegTop = buildRegExp(top_level_rules.ieeg_top)
 const multiDirFieldmap = buildRegExp(top_level_rules.multi_dir_fieldmap)
 const otherTopFiles = buildRegExp(top_level_rules.other_top_files)
 const megTop = buildRegExp(top_level_rules.meg_top)
+const nirsTop = buildRegExp(top_level_rules.nirs_top)
 
 export default {
   /**
@@ -74,6 +77,7 @@ export default {
       this.file.isDWI(path) ||
       this.file.isFunc(path) ||
       this.file.isMeg(path) ||
+      this.file.isNIRS(path) ||
       this.file.isIEEG(path) ||
       this.file.isEEG(path) ||
       this.file.isBehavioral(path) ||
@@ -99,6 +103,7 @@ export default {
         multiDirFieldmap.test(path) ||
         otherTopFiles.test(path) ||
         megTop.test(path) ||
+        nirsTop.test(path) ||
         eegTop.test(path) ||
         ieegTop.test(path)
       )
@@ -147,6 +152,7 @@ export default {
         conditionalMatch(anatSes, path) ||
         conditionalMatch(dwiSes, path) ||
         conditionalMatch(megSes, path) ||
+        conditionalMatch(nirsSes, path) ||
         conditionalMatch(eegSes, path) ||
         conditionalMatch(ieegSes, path)
       )
@@ -198,6 +204,10 @@ export default {
       return conditionalMatch(megData, path)
     },
 
+    isNIRS: function(path) {
+      return conditionalMatch(nirsData, path)
+    },
+
     isEEG: function(path) {
       return conditionalMatch(eegData, path)
     },
@@ -226,6 +236,7 @@ export default {
         this.isFieldMapMainNii(path) ||
         this.isFunc(path) ||
         this.isMeg(path) ||
+        this.isNIRS(path) ||
         this.isEEG(path) ||
         this.isIEEG(path) ||
         this.isBehavioral(path) ||

@@ -221,5 +221,23 @@
 
   "stimuli": {
     "regexp": "^\\/(?:stimuli)\\/(?:.*)$"
+  },
+
+  "nirs": {
+    "regexp": "^\\/(sub-[a-zA-Z0-9]+)\\/(?:(ses-[a-zA-Z0-9]+)\\/)?nirs\\/\\1(_\\2)?(?:_task-[a-zA-Z0-9]+)?(?:_acq-[a-zA-Z0-9]+)?(?:_run-[0-9]+)?(?:_proc-[a-zA-Z0-9]+)?(?:_part-[0-9]+)?(_nirs\\.(@@@_nirs_type_@@@)|(@@@_nirs_ext_@@@))$",
+    "tokens": {
+      "@@@_nirs_type_@@@": ["snirf"],
+      "@@@_nirs_ext_@@@": [
+        "_events\\.json",
+        "_events\\.tsv",
+        "_optodes\\.json",
+        "_optodes\\.tsv",
+        "_channels\\.json",
+        "_channels\\.tsv",
+        "_nirs\\.json",
+        "_coordsystem\\.json",
+        "_photo\\.jpg"
+      ]
+    }
   }
 }
