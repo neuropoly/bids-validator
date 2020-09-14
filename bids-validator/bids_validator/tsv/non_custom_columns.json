@@ -5,6 +5,10 @@
     "low_cutoff",
     "name",
     "notch",
+    "source",
+    "detector",
+    "wavelength",
+    "data",
     "sampling_frequency",
     "software_filters",
     "status",
@@ -27,6 +31,13 @@
     "type",
     "impedance",
     "dimension"
+  ],
+  "optodes": [
+    "name",
+    "x",
+    "y",
+    "z",
+    "type"
   ],
   "events": [
     "duration",
