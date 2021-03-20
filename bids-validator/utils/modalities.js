@@ -38,39 +38,5 @@ export default {
     }
 
     return modalities
-  },
-
-  isCorrectModality: path => {
-    let isCorrectModality = false
-    // MRI
-    if (
-      path[0].includes('.nii') &&
-      ['anat', 'func', 'dwi'].indexOf(path[1]) != -1
-    ) {
-      isCorrectModality = true
-    } else if (['.json', '.tsv'].some(v => path[0].includes(v))) {
-      const testPath = path[1]
-      switch (testPath) {
-        case 'meg':
-          // MEG
-          isCorrectModality = true
-          break
-        case 'eeg':
-          // EEG
-          isCorrectModality = true
-          break
-        case 'ieeg':
-          // EEG
-          isCorrectModality = true
-          break
-        case 'nirs':
-          // NIRS
-          isCorrectModality = true
-          break
-        default:
-          break
-      }
-    }
-    return isCorrectModality
-  },
+  }
 }

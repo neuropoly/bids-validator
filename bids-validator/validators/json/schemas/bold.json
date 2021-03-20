@@ -2,11 +2,11 @@
   "$schema": "http://json-schema.org/draft-06/schema#",
   "type": "object",
   "properties": {
-    "CogAtlasID": {
-      "type": "string"
-    },
-    "CogPOID": {
-      "type": "string"
+    "CogAtlasID": { "$ref": "common_definitions.json#/definitions/CogAtlasID" },
+    "CogPOID": { "$ref": "common_definitions.json#/definitions/CogPOID" },
+    "AcquisitionDuration": {
+      "type": "number",
+      "exclusiveMinimum": 0
     },
     "EchoTime": {
       "type": "number",
@@ -37,6 +37,10 @@
     },
     "TaskName": {
       "type": "string"
+    },
+    "VolumeTiming": {
+      "type": "number",
+      "exclusiveMinimum": 0
     }
   }
 }

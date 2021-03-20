@@ -102,9 +102,9 @@ describe('BIDS example datasets ', function() {
       assert(summary.modalities.includes('T1w'))
       assert(summary.modalities.includes('inplaneT2'))
       assert(summary.modalities.includes('bold'))
-      assert(summary.totalFiles === 133)
+      assert(summary.totalFiles === 134)
       assert.deepEqual(errors.length, 1)
-      assert(warnings.length === 3)
+      assert(warnings.length === 2)
       assert(
         warnings.findIndex(warning => warning.code === 13) > -1,
         'warnings do not contain a code 13',
@@ -133,7 +133,7 @@ describe('BIDS example datasets ', function() {
         errors.findIndex(error => error.code === 60) > -1,
         'errors do not contain a code 60',
       )
-      assert.deepEqual(warnings.length, 3)
+      assert.deepEqual(warnings.length, 4)
       assert(
         warnings.findIndex(warning => warning.code === 13) > -1,
         'warnings do not contain a code 13',
@@ -205,9 +205,9 @@ describe('BIDS example datasets ', function() {
       assert(summary.modalities.includes('T1w'))
       assert(summary.modalities.includes('inplaneT2'))
       assert(summary.modalities.includes('bold'))
-      assert(summary.totalFiles === 133)
+      assert(summary.totalFiles === 134)
       assert.deepEqual(errors.length, 1)
-      assert(warnings.length === 3)
+      assert(warnings.length === 2)
       assert(
         warnings.findIndex(warning => warning.code === 13) > -1,
         'warnings do not contain a code 13',
@@ -220,7 +220,10 @@ describe('BIDS example datasets ', function() {
     validate.BIDS(createDatasetFileList('unused_data_dict'), options, function(
       issues,
     ) {
-      assert.notEqual(issues.errors.findIndex(issue => issue.code === 90), -1)
+      assert.notEqual(
+        issues.errors.findIndex(issue => issue.code === 90),
+        -1,
+      )
       isdone()
     })
   })
@@ -230,7 +233,10 @@ describe('BIDS example datasets ', function() {
       createDatasetFileList('fieldmap_without_magnitude'),
       options,
       function(issues) {
-        assert.notEqual(issues.errors.findIndex(issue => issue.code === 91), -1)
+        assert.notEqual(
+          issues.errors.findIndex(issue => issue.code === 91),
+          -1,
+        )
         isdone()
       },
     )
@@ -260,7 +266,10 @@ describe('BIDS example datasets ', function() {
     validate.BIDS(createDatasetFileList('valid_dataset'), options, function(
       issues,
     ) {
-      assert.equal(issues.errors.findIndex(issue => issue.code === 123), -1)
+      assert.equal(
+        issues.errors.findIndex(issue => issue.code === 123),
+        -1,
+      )
       isdone()
     })
   })

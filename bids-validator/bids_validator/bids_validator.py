@@ -76,17 +76,11 @@ class BIDSValidator():
 
     def is_top_level(self, path):
         """Check if the file has appropriate name for a top-level file."""
-        with open(self.dir_rules + 'fixed_top_level_names.json', 'r') as fin:
-            fixed_top_level_json = json.load(fin)
-            fixed_top_level_names = fixed_top_level_json['fixed_top_level_names']  # noqa: E501
-
         regexps = self.get_regular_expressions(self.dir_rules +
                                                'top_level_rules.json')
 
         conditions = [False if re.compile(x).search(path) is None else True for
                       x in regexps]
-
-        conditions.append(path in fixed_top_level_names)
 
         return (any(conditions))
 
@@ -163,19 +157,6 @@ class BIDSValidator():
             regexps.append(regexp)
 
         return regexps
-
-    def get_path_values(self, path):
-        """Return values for path keys "sub" and "ses"."""
-        values = {}
-
-        regexps = self.get_regular_expressions(self.dir_rules + 'path.json')
-
-        # capture subject
-        for paths in ['sub', 'ses']:
-            match = re.compile(regexps[paths]).findall(path)
-            values[paths] = match[1] if match & match[1] else None
-
-        return values
 
     def conditional_match(self, expression, path):
         """Find conditional match."""

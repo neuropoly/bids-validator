@@ -1,5 +1,6 @@
 variables:
   GIT_STRATEGY: fetch
+  GIT_CHECKOUT: "false"
   GIT_SUBMODULE_STRATEGY: normal
   NODE_OPTIONS: --no-warnings
 stages:
@@ -11,8 +12,13 @@ tests:
     - windows
   before_script:
     - Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-    - choco install -y yarn
+    - npm install --global npm@7
+    - node -v
+    - npm -v
     - refreshenv
   script:
-    - yarn
-    - yarn jest --testTimeout 30000
+    - git config core.symlinks true
+    - git checkout $CI_COMMIT_REF_NAME
+    - git submodule update --init --depth 1
+    - npm install
+    - npm run test -- --testTimeout 30000
