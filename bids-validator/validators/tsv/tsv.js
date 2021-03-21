@@ -290,6 +290,17 @@ const TSV = (file, contents, fileList, callback) => {
     checkheader('size', 4, file, 73)
   }
 
+  if (
+    file.relativePath.includes('/nirs/') &&
+    file.name.endsWith('_optodes.tsv')
+  ) {
+    checkheader('name', 0, file, 9992)
+    checkheader('type', 1, file, 9992)
+    checkheader('x', 2, file, 9992)
+    checkheader('y', 3, file, 9992)
+    checkheader('z', 4, file, 9992)
+  }
+
   // check for valid SI units
   /* 
    * Commenting out call to validation until it is inline with spec:
