@@ -7,8 +7,8 @@
     "notch",
     "source",
     "detector",
-    "wavelength_actual",
-    "wavelength_nominal",
+    "wavelength",
+    "data",
     "sampling_frequency",
     "software_filters",
     "status",
@@ -34,10 +34,10 @@
   ],
   "optodes": [
     "name",
-    "type",
     "x",
     "y",
-    "z"
+    "z",
+    "type"
   ],
   "events": [
     "duration",
