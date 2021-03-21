@@ -1072,5 +1072,11 @@ export default {
     key: 'HED_INVALID_SIDECAR_WARNING',
     severity: 'warning',
     reason: 'A HED warning was found in the JSON sidecar.',
+  },
+  9991: {
+    key: 'MISSING_TSV_COLUMN_NIRS_CHANNELS',
+    severity: 'error',
+    reason:
+      "The column names of the channels file must begin with ['name', 'type', 'source', 'detector', 'units']",
   }
 }
