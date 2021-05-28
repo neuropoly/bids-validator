@@ -1158,10 +1158,10 @@ export default {
     key: 'MISSING_TSV_COLUMN_NIRS_CHANNELS',
     severity: 'error',
     reason:
-      "The column names of the channels file must begin with ['name', 'type', 'source', 'detector', 'units']",
+      "The column names of the channels file must begin with ['name', 'type', 'source', 'detector', 'wavelength_nominal, 'units']",
   },
   9992: {
-    key: 'MISSING_TSV_COLUMN_NIRS_ELECTRODES',
+    key: 'MISSING_TSV_COLUMN_NIRS_OPTODES',
     severity: 'error',
     reason:
       "The column names of the optodes file must begin with ['name', 'type', 'x', 'y', 'z']",
