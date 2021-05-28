@@ -321,6 +321,7 @@ const TSV = (file, contents, fileList, callback) => {
     checkheader('x', 2, file, 9992)
     checkheader('y', 3, file, 9992)
     checkheader('z', 4, file, 9992)
+  }
   // blood.tsv
   if (
     file.relativePath.includes('/pet/') &&
