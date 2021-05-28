@@ -9,6 +9,9 @@
     "detector",
     "wavelength_actual",
     "wavelength_nominal",
+    "wavelength_emission_actual",
+    "orientation_component",
+    "short_channel",
     "sampling_frequency",
     "software_filters",
     "status",
@@ -32,7 +35,17 @@
     "impedance",
     "dimension"
   ],
-  "optodes": ["name", "type", "x", "y", "z"],
+  "optodes": [
+    "name",
+    "type",
+    "x",
+    "y",
+    "z",
+    "template_x",
+    "template_y",
+    "template_z",
+    "source_type",
+    "detector_type"],
   "events": [
     "duration",
     "HED",
