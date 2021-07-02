@@ -31,7 +31,10 @@
       "$ref": "common_definitions.json#/definitions/PowerLineFrequency"
     },
     "SamplingFrequency": {
-      "$ref": "common_definitions.json#/definitions/SamplingFrequency"
+      "anyOf": [
+        { "$ref": "common_definitions.json#/definitions/SamplingFrequency" },
+        { "enum": ["n/a"] }
+      ]
     },
     "NIRSChannelCount": {
       "$ref": "common_definitions.json#/definitions/NIRSChannelCount"

@@ -45,7 +45,8 @@
     "template_y",
     "template_z",
     "source_type",
-    "detector_type"],
+    "detector_type"
+  ],
   "events": [
     "duration",
     "HED",
@@ -62,5 +63,27 @@
   "scans": ["acq_time", "filename"],
   "sessions": ["acq_time", "session_id"],
   "aslcontext": ["volume_type"],
-  "blood": ["time", "plasma_radioactivity", "whole_blood_radioactivity", "metabolite_parent_fraction", "hplc_recovery_fractions"]
+  "blood": [
+    "time",
+    "plasma_radioactivity",
+    "whole_blood_radioactivity",
+    "metabolite_parent_fraction",
+    "hplc_recovery_fractions"
+  ],
+  "nirs": [
+    "name",
+    "type",
+    "source",
+    "detector",
+    "wavelength_nominal",
+    "units",
+    "sampling_frequency",
+    "orientation_component",
+    "wavelength_actual",
+    "description",
+    "wavelength_emission_actual",
+    "short_channel",
+    "status",
+    "status_description"
+  ]
 }

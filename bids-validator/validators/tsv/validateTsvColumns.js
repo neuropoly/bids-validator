@@ -1,6 +1,7 @@
 import utils from '../../utils'
 const Issue = utils.issues.Issue
 import nonCustomColumns from '../../bids_validator/tsv/non_custom_columns.json'
+import parseTSV from './tsvParser'
 
 /**
  * @param {Object} file - BIDS file object
@@ -98,9 +99,16 @@ const validateTsvColumns = function(tsvs, jsonContentsDict, headers) {
     const isNIRS = tsvType === 'nirs'
     if (customColumns.length > 0 || isPetBlood || isNIRS) {
       // Get merged data dictionary for this file
-      const potentialSidecars = utils.files.potentialLocations(
-        tsv.file.relativePath.replace('.tsv', '.json'),
-      )
+      let potentialSidecars
+      if (isNIRS) {
+        potentialSidecars = utils.files.potentialLocations(
+          tsv.file.relativePath.replace('_channels.tsv', '_nirs.json'),
+        )
+      } else {
+        potentialSidecars = utils.files.potentialLocations(
+          tsv.file.relativePath.replace('.tsv', '.json'),
+        )
+      }
       const mergedDict = utils.files.generateMergedSidecarDict(
         potentialSidecars,
         jsonContentsDict,
@@ -200,18 +208,19 @@ export const validatePetBloodHeaders = (tsv, mergedDict, schema) => {
  */
 export const validateNIRSHeaders = (tsv, mergedDict, schema) => {
   const tsvIssues = []
-  const headers = getHeaders(tsv.contents)
+  const { headers, rows } = parseTSV(tsv.contents)
 
   // Collect required headers and the JSON sidecar properties that require them.
   const requiredHeaders = {}
   if (schema.hasOwnProperty('required_if_tsv_value_present')) {
-    for (key in schema.required_if_tsv_value_present) {
-      tsv_req = schema.required_if_tsv_value_present[key]
-      req_index = headers.indexOf(tsv_req.header)
-      value_present = tsv.contents
+    for (let key in schema.required_if_tsv_value_present) {
+      let tsv_req = schema.required_if_tsv_value_present[key]
+      console.log(tsv_req)
+      let req_index = headers.indexOf(tsv_req.header)
+      let value_present = rows
         .map(x => x[req_index])
         .some(y => y === tsv_req.value)
-      if (value_present && !merged_dict.hasOwnProperty(key)) {
+      if (value_present && !mergedDict.hasOwnProperty(key)) {
         tsvIssues.push(
           new Issue({
             code: 211,
