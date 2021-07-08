@@ -128,7 +128,7 @@ const validateTsvColumns = function(tsvs, jsonContentsDict, headers) {
 
       if (isPetBlood) {
         // Check PET tsv headers required by json sidecar
-        const petBloodHeaderIssues = validatePetBloodHeaders(
+        const petBloodHeaderIssues = validateJsonRequiredHeaders(
           tsv,
           mergedDict,
           schemas['blood'],
@@ -136,12 +136,18 @@ const validateTsvColumns = function(tsvs, jsonContentsDict, headers) {
         tsvIssues.push(...petBloodHeaderIssues)
       }
       if (isNIRS) {
-        const NIRSHeaderIssues = validateNIRSHeaders(
+        let NIRSIssues = validateJsonRequiredHeaders(
           tsv,
           mergedDict,
           schemas['nirs'],
         )
-        tsvIssues.push(...NIRSHeaderIssues)
+        tsvIssues.push(...NIRSIssues)
+        NIRSIssues = validateValueRequiredJsonField(
+          tsv,
+          mergedDict,
+          schemas['nirs'],
+        )
+        tsvIssues.push(...NIRSIssues)
       }
     }
   })
@@ -155,13 +161,14 @@ const validateTsvColumns = function(tsvs, jsonContentsDict, headers) {
 }
 
 /**
- * Validates that tsv columns required by
+ * 'requires_tsv_non_custom_columns' property in a json schema specifies
+ * required tsv columns if the json field exists in any sidecar.
  * @param {*} tsv
  * @param {*} mergedDict
  * @param {*} schema
  * @returns
  */
-export const validatePetBloodHeaders = (tsv, mergedDict, schema) => {
+export const validateJsonRequiredHeaders = (tsv, mergedDict, schema) => {
   const tsvIssues = []
   const headers = getHeaders(tsv.contents)
 
@@ -170,7 +177,9 @@ export const validatePetBloodHeaders = (tsv, mergedDict, schema) => {
   Object.entries(schema.properties).forEach(([property, subSchema]) => {
     if (
       subSchema.hasOwnProperty('requires_tsv_non_custom_columns') &&
-      mergedDict[property] === true
+      ((typeof mergedDict[property] === 'boolean' &&
+        mergedDict[property] === true) ||
+        !!mergedDict[property])
     ) {
       subSchema.requires_tsv_non_custom_columns.forEach(header => {
         if (header in requiredHeaders) {
@@ -200,13 +209,16 @@ export const validatePetBloodHeaders = (tsv, mergedDict, schema) => {
 }
 
 /**
- * Validates that tsv columns required by
+ * 'required_if_tsv_value_present' objects in json schemas specify a json
+ * field, a tsv column, and a value. This function validates that the json
+ * field is defined in any appropriate sidecar if the value exists in the
+ * specified column.
  * @param {*} tsv
  * @param {*} mergedDict
  * @param {*} schema
  * @returns
  */
-export const validateNIRSHeaders = (tsv, mergedDict, schema) => {
+export const validateValueRequiredJsonField = (tsv, mergedDict, schema) => {
   const tsvIssues = []
   const { headers, rows } = parseTSV(tsv.contents)
 
@@ -215,7 +227,6 @@ export const validateNIRSHeaders = (tsv, mergedDict, schema) => {
   if (schema.hasOwnProperty('required_if_tsv_value_present')) {
     for (let key in schema.required_if_tsv_value_present) {
       let tsv_req = schema.required_if_tsv_value_present[key]
-      console.log(tsv_req)
       let req_index = headers.indexOf(tsv_req.header)
       let value_present = rows
         .map(x => x[req_index])

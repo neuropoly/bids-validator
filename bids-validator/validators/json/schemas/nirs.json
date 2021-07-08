@@ -67,7 +67,11 @@
     "CapManufacturer": { "type": "string" },
     "CapManufacturersModelName": { "type": "string" },
     "HeadCircumference": { "type": "number", "exclusiveMinimum": 0 },
-    "ShortChannelCount": { "type": "number", "exclusiveMinimum": 0 },
+    "ShortChannelCount": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "requires_tsv_non_custom_columns": ["short_channel"]
+    },
     "HardwareFilters": {
       "$ref": "common_definitions.json#/definitions/HardwareFilters"
     },
